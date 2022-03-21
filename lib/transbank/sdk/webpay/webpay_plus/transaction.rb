@@ -38,7 +38,7 @@ module Transbank
             url = base_url + COMMIT_TRANSACTION_ENDPOINT + "/#{token}"
             headers = webpay_headers(commerce_code: commerce_code, api_key: api_key)
 
-            resp = http_put(uri_string: url, body: nil, headers: headers)
+            resp = http_put(uri_string: url, body: [], headers: headers)
             body = JSON.parse(resp.body)
             return ::Transbank::Webpay::WebpayPlus::TransactionCommitResponse.new(body) if resp.kind_of? Net::HTTPSuccess
             raise Errors::TransactionCommitError.new(body['error_message'], resp.code)
